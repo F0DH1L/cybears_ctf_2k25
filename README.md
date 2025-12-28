@@ -14,5 +14,4 @@ This repository contains:
 - Detailed writeups and explanations
 - Solution scripts
 
-## Additional Resources
-For more writeups and security content, visit my blog: [f0dh1l.github.io/blog](https://f0dh1l.github.io/blog)
+For more writeups and web security content, visit my blog: [f0dh1l.github.io/blog](https://f0dh1l.github.io/blog)
