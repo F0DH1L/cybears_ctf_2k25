@@ -1,0 +1,31 @@
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - 5000:5000
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 10s
+
+    environment:
+      - FLAG='Cybears{Fake_Flag}'
+      - ADMIN_PASSWORD="super_secret_admin_password!#1337$$$$" ##change this to your desired admin password
+      - BASE_DOMAIN=172.21.0.2
+
+  frontend:
+    build: ./frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://172.21.0.2:5000
+    ports:
+      - 3000:3000
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        window: 10s
+        
+    depends_on:
+      - backend

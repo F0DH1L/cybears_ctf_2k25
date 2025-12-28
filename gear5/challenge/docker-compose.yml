@@ -1,0 +1,26 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secretpassword1236543asdfhjwer
+    volumes:
+      - mongo_data:/data/db
+
+  # gear5:
+  #   build: .
+  #   container_name: gear5_app
+  #   restart: always
+  #   ports:
+  #     - "4000:4000"
+  #   environment:
+  #     MONGO_URI: mongodb://admin:secretpassword1236543asdfhjwer@mongodb:27017/
+  #   depends_on:
+  #     - mongodb
+
+volumes:
+  mongo_data:

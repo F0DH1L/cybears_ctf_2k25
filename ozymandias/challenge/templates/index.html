@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Pollos Hermanos - Premium Chicken Restaurant</title>
+    <style>
+        body {
+            font-family: 'Courier New', 'Arial Black', monospace;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #1a1a1a 50%, #2d2d2d 75%, #1a1a1a 100%);
+            color: #e8c547;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(232, 197, 71, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(204, 85, 0, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 40% 60%, rgba(139, 0, 0, 0.1) 0%, transparent 40%);
+            z-index: -1;
+            animation: breathingGlow 8s infinite alternate;
+        }
+        
+        @keyframes breathingGlow {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.7; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border: 3px solid #e8c547;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(45, 45, 45, 0.95));
+            border-radius: 15px;
+            box-shadow: 
+                0 0 30px rgba(232, 197, 71, 0.4),
+                inset 0 0 20px rgba(204, 85, 0, 0.1);
+            backdrop-filter: blur(10px);
+            animation: polloPulse 4s infinite alternate;
+        }
+        
+        @keyframes polloPulse {
+            0% { box-shadow: 0 0 30px rgba(232, 197, 71, 0.4), inset 0 0 20px rgba(204, 85, 0, 0.1); }
+            100% { box-shadow: 0 0 50px rgba(232, 197, 71, 0.6), inset 0 0 30px rgba(204, 85, 0, 0.2); }
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 3.2em;
+            font-weight: 900;
+            color: #e8c547;
+            text-shadow: 
+                2px 2px 0px #8b0000,
+                4px 4px 0px #654321,
+                0 0 20px #e8c547;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-family: 'Arial Black', 'Courier New', sans-serif;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            color: #cc5500;
+            font-weight: bold;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #cc5500;
+        }
+        .location-selector {
+            margin-bottom: 30px;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(45, 45, 45, 0.9));
+            border-radius: 15px;
+            border: 2px solid #cc5500;
+            box-shadow: 
+                0 0 20px rgba(204, 85, 0, 0.3),
+                inset 0 0 10px rgba(232, 197, 71, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .location-selector label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            color: #e8c547;
+            font-weight: bold;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #e8c547;
+        }
+        
+        .location-selector select {
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            color: #e8c547;
+            border: 2px solid #e8c547;
+            padding: 12px 20px;
+            font-size: 1em;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            min-width: 200px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(232, 197, 71, 0.2);
+        }
+        
+        .location-selector select:focus {
+            outline: none;
+            border-color: #cc5500;
+            box-shadow: 
+                0 0 20px rgba(204, 85, 0, 0.5),
+                0 0 30px rgba(232, 197, 71, 0.3);
+            transform: translateY(-2px);
+        }
+        .flag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .flag-card {
+            border: 2px solid #cc5500;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(45, 45, 45, 0.95));
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 
+                0 0 20px rgba(204, 85, 0, 0.2),
+                inset 0 0 10px rgba(232, 197, 71, 0.05);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        
+        .flag-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(232, 197, 71, 0.15), transparent);
+            transition: left 0.5s;
+        }
+        
+        .flag-card:hover::before {
+            left: 100%;
+        }
+        
+        .flag-card:hover {
+            box-shadow: 
+                0 0 40px rgba(204, 85, 0, 0.5),
+                0 0 60px rgba(232, 197, 71, 0.3),
+                inset 0 0 20px rgba(232, 197, 71, 0.1);
+            transform: translateY(-5px) scale(1.02);
+            border-color: #e8c547;
+        }
+        
+        .flag-card h3 {
+            margin: 0 0 10px 0;
+            color: #e8c547;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #e8c547;
+        }
+        
+        
+        .flag-price {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #e8c547;
+            margin: 10px 0;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #e8c547;
+        }
+        
+        .flag-preview {
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #cc5500;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            font-size: 0.9em;
+            color: #cc5500;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(204, 85, 0, 0.2);
+        }
+        
+        .buy-btn {
+            background: linear-gradient(135deg, #e8c547, #f4d03f);
+            color: #000;
+            border: 2px solid #e8c547;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-family: 'Arial Black', 'Courier New', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 
+                0 0 15px rgba(232, 197, 71, 0.3),
+                inset 0 0 10px rgba(244, 208, 63, 0.2);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+        }
+        
+        .buy-btn:hover {
+            background: linear-gradient(135deg, #cc5500, #e67e22);
+            color: #fff;
+            border-color: #cc5500;
+            transform: translateY(-3px);
+            box-shadow: 
+                0 0 25px rgba(204, 85, 0, 0.6),
+                0 5px 15px rgba(232, 197, 71, 0.4);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.7);
+        }
+        
+        .buy-btn:disabled {
+            background: linear-gradient(135deg, #555, #777);
+            color: #999;
+            border-color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }        .buy-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+        .buy-btn:disabled {
+            background-color: #95a5a6;
+            color: #ecf0f1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #e8c547;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(45, 45, 45, 0.95));
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+            box-shadow: 
+                0 0 20px rgba(232, 197, 71, 0.3),
+                inset 0 0 10px rgba(204, 85, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result.success {
+            border-color: #27ae60;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(0, 100, 30, 0.2));
+            color: #27ae60;
+            box-shadow: 
+                0 0 30px rgba(39, 174, 96, 0.4),
+                inset 0 0 15px rgba(39, 174, 96, 0.1);
+        }
+        
+        .result.error {
+            border-color: #8b0000;
+            color: #ff6b6b;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(139, 0, 0, 0.2));
+            box-shadow: 
+                0 0 30px rgba(139, 0, 0, 0.4),
+                inset 0 0 15px rgba(139, 0, 0, 0.1);
+        }
+        
+        .loading {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 20px 0;
+            display: none;
+            color: #e8c547;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #e8c547;
+        }
+        .nav {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav a, .nav button {
+            color: #e8c547;
+            text-decoration: none;
+            padding: 12px 25px;
+            border: 2px solid #e8c547;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(45, 45, 45, 0.9));
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-family: 'Arial Black', 'Courier New', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(232, 197, 71, 0.2);
+            backdrop-filter: blur(10px);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+        }
+        
+        .nav a:hover, .nav button:hover {
+            background: linear-gradient(135deg, #e8c547, #f4d03f);
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 0 20px rgba(232, 197, 71, 0.5),
+                0 5px 15px rgba(232, 197, 71, 0.3);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+        }
+        
+        .logout-btn {
+            background: linear-gradient(135deg, #8b0000, #a0392b) !important;
+            color: #fff !important;
+            border-color: #8b0000 !important;
+        }
+        
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #dc143c, #b22222) !important;
+            color: #fff !important;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.7) !important;
+        }
+        
+        .bonus-btn {
+            background: linear-gradient(135deg, #cc5500, #e67e22) !important;
+            color: #fff !important;
+            border: 2px solid #cc5500 !important;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-family: 'Arial Black', 'Courier New', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(204, 85, 0, 0.3);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+        }
+        
+        .bonus-btn:hover {
+            background: linear-gradient(135deg, #e8c547, #f4d03f) !important;
+            color: #000 !important;
+            border-color: #e8c547 !important;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(232, 197, 71, 0.5);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.3) !important;
+        }
+        
+        .bonus-btn:disabled {
+            background: linear-gradient(135deg, #555, #777) !important;
+            color: #999 !important;
+            border-color: #666 !important;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+                <div class="header">
+            <h1>🐔 LOS POLLOS HERMANOS 🐔</h1>
+            <p>Where Something Delicious Is Always Cooking</p>
+            <div class="subtitle">Premium Quality. Exceptional Taste. Family Owned.</div>
+            {% if user %}
+            <p style="color: #e8c547; text-shadow: 1px 1px 0px #000, 0 0 10px #e8c547;">Welcome back, {{ user.username }}! | Balance: ${{ "%.2f"|format(user.balance) }}</p>
+            {% if not user.bonus_claimed %}
+            <p style="color: #cc5500; text-shadow: 1px 1px 0px #000, 0 0 10px #cc5500;">🎁 You have an unclaimed Welcome Bonus!</p>
+            {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="nav">
+            <a href="/">🏠 Shop</a>
+            <a href="/profile">👤 My Account</a>
+            {% if user and not user.bonus_claimed %}
+            <button onclick="claimBonus()" class="bonus-btn" id="bonusBtn">🎁 Claim $10 Welcome Bonus</button>
+            {% endif %}
+            <a href="/logout" class="logout-btn">🚪 Sign Out</a>
+        </div>
+
+        <div class="location-selector">
+            <label for="location">Select your delivery location:</label>
+            <select id="location" name="location">
+                <option value="">-- Loading delivery options... --</option>
+            </select>
+        </div>
+
+        <div class="flag-grid">
+            {% for flag_id, flag_content in flags.items() %}
+            <div class="flag-card">
+                <h3>{{ flag_id.replace('_', ' ').title() }}</h3>
+                <div class="flag-price">${{ "%.2f"|format(prices[flag_id]) }}</div>
+                <button class="buy-btn" onclick="purchaseFlag('{{ flag_id }}')">
+                    PLACE ORDER
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="loading" id="loading">
+            Processing your order...
+        </div>
+
+        <div class="result" id="result">
+            <h3 id="result-title"></h3>
+            <div id="result-content"></div>
+        </div>
+    </div>
+
+    <!-- Load locations from separate static server via nginx -->
+    <script src="/static/js/locations.js"></script>
+    <script>
+        // Initialize locations dropdown when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const locationSelect = document.getElementById('location');
+            
+            // Check if locations are loaded
+            if (typeof window.locations !== 'undefined' && window.locations.length > 0) {
+                locationSelect.innerHTML = '<option value="">-- Select your distribution center --</option>';
+                window.locations.forEach(function(location) {
+                    const option = document.createElement('option');
+                    option.value = location.code;
+                    option.textContent = location.name;
+                    locationSelect.appendChild(option);
+                });
+            } else {
+                locationSelect.innerHTML = '<option value="">-- Error loading distribution network --</option>';
+            }
+        });
+
+        function claimBonus() {
+            const bonusBtn = document.getElementById('bonusBtn');
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+            const location = document.getElementById('location').value;
+            
+            if (!location) {
+                showResult('Error', 'Please select a distribution center first to claim your startup bonus!', 'error');
+                return;
+            }
+            
+            bonusBtn.disabled = true;
+            loadingDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+            
+            fetch('/claim-bonus', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    location: location
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingDiv.style.display = 'none';
+                
+                if (data.success) {
+                    // Update balance display
+                    const balanceElement = document.getElementById('user-balance');
+                    if (balanceElement) {
+                        balanceElement.textContent = '$' + data.new_balance.toFixed(2);
+                    }
+                    
+                    // Hide bonus button
+                    bonusBtn.style.display = 'none';
+                    
+                    showResult('Customer Bonus Claimed!', data.message, 'success');
+                } else {
+                    bonusBtn.disabled = false;
+                    showResult('Bonus Error', data.error, 'error');
+                }
+            })
+            .catch(error => {
+                loadingDiv.style.display = 'none';
+                bonusBtn.disabled = false;
+                showResult('Error', 'Network error occurred', 'error');
+            });
+        }
+
+        function purchaseFlag(flagId) {
+            const location = document.getElementById('location').value;
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+            
+            if (!location) {
+                showResult('Error', 'Please select a delivery location first!', 'error');
+                return;
+            }
+
+            // Disable all buy buttons
+            const buyBtns = document.querySelectorAll('.buy-btn');
+            buyBtns.forEach(btn => btn.disabled = true);
+            
+            loadingDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+
+            fetch('/purchase', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    flag_id: flagId,
+                    location: location
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingDiv.style.display = 'none';
+                buyBtns.forEach(btn => btn.disabled = false);
+                
+                if (data.success) {
+                    // Update balance display
+                    const balanceElement = document.getElementById('user-balance');
+                    if (balanceElement && data.new_balance !== undefined) {
+                        balanceElement.textContent = '$' + data.new_balance.toFixed(2);
+                    }
+                    
+                    showResult(
+                        'Order Successful!', 
+                        `<p><strong>Your Premium Flag:</strong> <code>${data.flag}</code></p>
+                         <p><strong>Order Price:</strong> $${data.price}</p>
+                         <p><strong>Distribution Center:</strong> ${data.location}</p>
+                         <p>${data.message}</p>`,
+                        'success'
+                    );
+                } else {
+                    showResult('Cook Failed', data.error, 'error');
+                }
+            })
+            .catch(error => {
+                loadingDiv.style.display = 'none';
+                buyBtns.forEach(btn => btn.disabled = false);
+                showResult('Error', 'Network error occurred', 'error');
+            });
+        }
+
+        function showResult(title, content, type) {
+            const resultDiv = document.getElementById('result');
+            const titleElement = document.getElementById('result-title');
+            const contentElement = document.getElementById('result-content');
+            
+            titleElement.textContent = title;
+            contentElement.innerHTML = content;
+            resultDiv.className = 'result ' + type;
+            resultDiv.style.display = 'block';
+            
+            // Scroll to result
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

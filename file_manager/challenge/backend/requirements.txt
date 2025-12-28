@@ -1,0 +1,6 @@
+flask
+playwright
+flask_cors
+flask-session
+requests
+python-dotenv

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login - Los Pollos Hermanos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', 'Arial Black', monospace;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #1a1a1a 50%, #2d2d2d 75%, #1a1a1a 100%);
+            color: #e8c547;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(232, 197, 71, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(204, 85, 0, 0.1) 0%, transparent 40%);
+            z-index: -1;
+            animation: breathingGlow 8s infinite alternate;
+        }
+        
+        @keyframes breathingGlow {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.7; }
+        }
+        
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(45, 45, 45, 0.95));
+            border: 3px solid #e8c547;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 
+                0 0 30px rgba(232, 197, 71, 0.4),
+                inset 0 0 20px rgba(204, 85, 0, 0.1);
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.5s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #e8c547;
+            letter-spacing: 2px;
+            text-shadow: 
+                2px 2px 0px #8b0000,
+                4px 4px 0px #654321,
+                0 0 20px #e8c547;
+            font-family: 'Arial Black', 'Courier New', sans-serif;
+        }
+        
+        .header p {
+            color: #cc5500;
+            font-size: 1.1em;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #cc5500;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #e8c547;
+            font-size: 1em;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #e8c547;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            border: 2px solid #cc5500;
+            color: #e8c547;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px rgba(204, 85, 0, 0.1);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #e8c547;
+            box-shadow: 
+                0 0 20px rgba(232, 197, 71, 0.4),
+                inset 0 0 15px rgba(204, 85, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #e8c547, #f4d03f);
+            color: #000;
+            border: 2px solid #e8c547;
+            font-family: 'Arial Black', 'Courier New', sans-serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 
+                0 0 15px rgba(232, 197, 71, 0.3),
+                inset 0 0 10px rgba(244, 208, 63, 0.2);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #cc5500, #e67e22);
+            color: #fff;
+            border-color: #cc5500;
+            transform: translateY(-3px);
+            box-shadow: 
+                0 0 25px rgba(204, 85, 0, 0.6),
+                0 5px 15px rgba(232, 197, 71, 0.4);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.7);
+        }
+        
+        .btn:disabled {
+            background: linear-gradient(135deg, #555, #777);
+            color: #999;
+            border-color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #cc5500;
+        }
+        
+        .register-link a {
+            color: #e8c547;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #e8c547;
+        }
+        
+        .register-link a:hover {
+            color: #cc5500;
+            text-decoration: underline;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #cc5500;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border: 2px solid #e8c547;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(45, 45, 45, 0.95));
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .result.success {
+            border-color: #27ae60;
+            color: #27ae60;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(0, 100, 30, 0.2));
+            box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+        }
+        
+        .result.error {
+            border-color: #8b0000;
+            color: #ff6b6b;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(139, 0, 0, 0.2));
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+        }
+        
+        .loading {
+            text-align: center;
+            margin: 15px 0;
+            display: none;
+            color: #e8c547;
+            font-weight: bold;
+            text-shadow: 
+                1px 1px 0px #000,
+                0 0 10px #e8c547;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="header">
+            <h1>🐔 CUSTOMER LOGIN</h1>
+            <p>Welcome to Los Pollos Hermanos</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn" id="loginBtn">SIGN IN</button>
+        </form>
+
+        <div class="loading" id="loading">
+            Signing you in...
+        </div>
+
+        <div class="result" id="result">
+            <div id="result-content"></div>
+        </div>
+
+        <div class="register-link">
+            <p>New customer? <a href="/register">Create account here</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            
+            if (!username || !password) {
+                showResult('Please fill in all fields', 'error');
+                return;
+            }
+            
+            loginBtn.disabled = true;
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loading.style.display = 'none';
+                loginBtn.disabled = false;
+                
+                if (data.success) {
+                    showResult(data.message, 'success');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                } else {
+                    showResult(data.error, 'error');
+                }
+            })
+            .catch(error => {
+                loading.style.display = 'none';
+                loginBtn.disabled = false;
+                showResult('Network error occurred', 'error');
+            });
+        });
+        
+        function showResult(message, type) {
+            const result = document.getElementById('result');
+            const content = document.getElementById('result-content');
+            
+            content.textContent = message;
+            result.className = 'result ' + type;
+            result.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

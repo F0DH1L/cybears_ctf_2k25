@@ -1,0 +1,43 @@
+services:
+  backend:
+    container_name: backend
+    build: .
+    volumes:
+      - ./app.py:/app/app.py
+      - ./templates:/app/templates
+      - ./data:/app/data
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - DATABASE=/app/data/flagshop.db
+      - STATIC_SERVER_URL=http://nginx:80/static
+    restart: unless-stopped
+    expose:
+      - 5000
+    depends_on:
+      - static-server
+
+  static-server:
+    container_name: static-server
+    build: .
+    command: python static_server.py
+    volumes:
+      - ./static_server.py:/app/static_server.py
+      - ./static:/app/static
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=0
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    ports:
+      - "8088:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend
+      - static-server
+    restart: unless-stopped

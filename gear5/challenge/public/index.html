@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏴‍☠️ ONE PIECE Network</title>
+  <meta name="description" content="A secure Gear 5 powered communication system for the Straw Hat Pirates">
+  <link rel="stylesheet" href="/public/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏴‍☠️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Bungee&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Floating One Piece Elements -->
+  <div class="floating-elements">
+    <div class="floating-element" style="top: 10%; left: 10%;">⚓</div>
+    <div class="floating-element" style="top: 20%; right: 15%;">🍖</div>
+    <div class="floating-element" style="top: 70%; left: 5%;">🗡️</div>
+    <div class="floating-element" style="bottom: 20%; right: 20%;">💰</div>
+    <div class="floating-element" style="bottom: 10%; left: 25%;">🦴</div>
+  </div>
+
+  <!-- Straw Hat Logo Background -->
+  <div class="straw-hat-bg"></div>
+  
+  <!-- Ocean Waves Background -->
+  <div class="ocean-waves">
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+  </div>
+
+  <div id="app">
+    <!-- Header Banner -->
+    <div class="header-banner">
+      <div class="gear5-silhouette"></div>
+      <div class="jolly-roger">🏴‍☠️</div>
+      <div class="crew-name">ONE PIECE NETWORK</div>
+      <div class="wanted-poster-frame">
+        <div class="gear5-title">GEAR 5</div>
+        <div class="subtitle">You need gear5 to solve this challenge</div>
+        <div class="bounty-amount">BOUNTY: 3,000,000,000 ฿</div>
+      </div>
+      <div class="devil-fruit-pattern"></div>
+    </div>
+
+    <!-- Authentication Section -->
+    <div id="auth">
+      <div class="luffy-quote-container">
+        <div class="speech-bubble">
+          <p>"I'm gonna be King of the Pirates!"</p>
+        </div>
+      </div>
+      
+      <div class="recruitment-notice">
+        <h3>🎯 WANTED: New Crew Members!</h3>
+        <p>Join the legendary Straw Hat Pirates and sail the Grand Line!</p>
+      </div>
+      
+      <div style="margin-bottom: 30px;">
+        <h2>⚓ Crew Member Login</h2>
+        <div class="form-container pirate-scroll">
+          <form onsubmit="event.preventDefault(); login();">
+            <div class="input-group">
+              <span class="input-icon">📧</span>
+              <input 
+                id="login-email" 
+                type="email" 
+                placeholder="Your Pirate Email" 
+                required 
+                autocomplete="email"
+              />
+            </div>
+            <div class="input-group">
+              <span class="input-icon">🔐</span>
+              <input 
+                id="login-password" 
+                type="password" 
+                placeholder="Secret Pirate Code" 
+                required 
+                autocomplete="current-password"
+              />
+            </div>
+            <button type="submit" class="pirate-button">
+              ⚓ Login
+              <span class="button-glow"></span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="divider-section">
+        <div class="wave-divider">
+          <span>🌊 ～～～～～～～～～ 🌊</span>
+        </div>
+        <span class="divider-text">New to the crew?</span>
+      </div>
+
+      <div>
+        <h2>🎯 Join the Straw Hat Pirates</h2>
+        <div class="form-container pirate-scroll">
+          <form onsubmit="event.preventDefault(); register();">
+            <div class="input-group">
+              <span class="input-icon">👤</span>
+              <input 
+                id="register-username" 
+                type="text" 
+                placeholder="Your Pirate Name" 
+                required 
+                autocomplete="username"
+                minlength="2"
+                maxlength="50"
+              />
+            </div>
+            <div class="input-group">
+              <span class="input-icon">📧</span>
+              <input 
+                id="register-email" 
+                type="email" 
+                placeholder="Your Pirate Email" 
+                required 
+                autocomplete="email"
+              />
+            </div>
+            <div class="input-group">
+              <span class="input-icon">🗝️</span>
+              <input 
+                id="register-password" 
+                type="password" 
+                placeholder="Secret Code (min 6 characters)" 
+                required 
+                autocomplete="new-password"
+                minlength="6"
+              />
+            </div>
+            <div class="input-group">
+              <span class="input-icon">�</span>
+              <input 
+                id="register-secret" 
+                type="text" 
+                placeholder="Enter the secret passphrase" 
+                required
+              />
+            </div>
+            <button type="submit" class="pirate-button recruit-button">
+              🏴‍☠️ Join the Crew!
+              <span class="button-glow"></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Section -->
+    <div id="chat" style="display:none;">
+      <!-- Ship Status Header -->
+      
+      <!-- Navigation Controls -->
+      <div class="navigation-panel">
+        <div class="compass-container">
+          <div class="compass">🧭</div>
+          <span>Navigation</span>
+        </div>
+        <div class="crew-finder">
+          <div class="input-group">
+            <span class="input-icon">👥</span>
+            <input 
+              id="receiver-id" 
+              type="text" 
+              placeholder="Find crewmate by ID..." 
+              style="flex: 1; margin: 0;"
+            />
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button onclick="loadMessages()" class="nav-button">
+            📜 Message Log
+          </button>
+        </div>
+      </div>
+
+      <!-- Message Display with Ship Theme -->
+      <div class="message-container">
+        <div class="ship-log-header">
+          <span class="log-title">📖 Communication Log</span>
+        </div>
+        <div id="messages" role="log" aria-label="Crew messages" class="ship-messages"></div>
+      </div>
+
+      <!-- Message Input Area -->
+<div class="message-input-area">
+  <div class="input-container">
+
+    <div class="message-sender-info">
+      <span class="sender-label">Send Message to Crew:</span>
+    </div>
+
+    <div class="input-row">
+      <input 
+        id="message-input"
+        class="chat-input"
+        type="text"
+        placeholder="Share your adventure with the crew..."
+        maxlength="1000"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="button-row">
+      <button onclick="sendMessage()" class="send-message-btn">
+        🚀 Fire!
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+    </div>
+  </div>
+
+  <!-- Footer with Wanted Poster Style -->
+  <div class="wanted-poster-footer">
+    <div class="one-piece-logo">
+      <div class="logo-text">ONE PIECE</div>
+      <div class="logo-subtitle">One Piece NETWORK</div>
+    </div>
+    <div class="marine-seal"></div>
+  </div>
+
+  <script src="/public/app.js"></script>
+</body>
+</html>
